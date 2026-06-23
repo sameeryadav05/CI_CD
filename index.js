@@ -1,21 +1,22 @@
-import express from 'express'
-import dotenv from 'dotenv'; dotenv.config();
+import express from "express";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 
-app.get("/",(req,res)=>{
+app.get("/health", (req, res) => {
+    res.send("All is Well!");
+});
 
-    try {
-        let {name = 'Anoymous'} = req.params
-        return res.send(`Hello , ${name}`)
-        
-    } catch (error) {
-        console.log(error)
-    }
-})
+app.get("/", (req, res) => {
+    let { name = "Anonymous"} = req.query;
 
-const PORT = process.env.PORT || 3000;
+    res.send(`Hello, ${name}`);
+});
 
-app.listen(PORT,()=>{
-    `Server listening on port ${PORT}`
-})
+const PORT = process.env.PORT || 4000;
+
+app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+});
