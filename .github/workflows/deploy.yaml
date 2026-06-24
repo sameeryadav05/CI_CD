@@ -8,3 +8,20 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
+    steps:
+      - name: Connect to EC2 and Deploy
+        uses: actions/checkout@v6
+      - name: deploy via ssh
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ubuntu
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ~/CI_CD
+            git pull https://github.com/sameeryadav05/CI_CD.git
+            sudo docker 
+            docker build -t .
+
+          
